@@ -1,0 +1,17 @@
+{% extends 'layouts/index.html' %}
+{% block content %}
+    <div style="display: flex; justify-content: space-between; flex-wrap: wrap">
+    {% for product in products %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <div style="background: rgba(0, 128, 0, 0.3)">
+                <h4 class="card-title">{{ product.title }}</h4>
+                <h5 class="card-description">{{ product.description }}</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary" style="background: rgba(5, 19, 7, 0.2)">Price: {{ product.price }}</h6>
+                <a href="/products/{{ product.id }}/" class="card-link">More</a>
+            </div>
+        </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

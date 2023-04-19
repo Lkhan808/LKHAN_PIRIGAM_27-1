@@ -1,0 +1,17 @@
+{% extends 'products/products.html' %}
+{% block content %}
+    <style type="text/css">
+    .product-block{
+        width: 50%;
+        margin-left: 40px;
+        background: linear-gradient(to bottom, #56ff 0%, #67bfc4 100%);
+    }
+    </style>
+    <div class="product-block">
+        <div class="info">
+            <h1>{{ product.title }}</h1>
+            <h5>{{ product.description }}</h5>
+            <h5>{{ product.price }}</h5>
+        </div>
+    </div>
+{% endblock %}
