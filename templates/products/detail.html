@@ -6,12 +6,39 @@
         margin-left: 40px;
         background: linear-gradient(to bottom, #56ff 0%, #67bfc4 100%);
     }
+    .comments{
+        margin-top: 15px;
+    }
+    .comment-block{
+        margin-bottom: 20px;
+        padding: 6px;
+        background-color: darkslategray;
+        font-family: "Aileron Bold", monospace;
+        color: aliceblue;
+
+
+    }
     </style>
     <div class="product-block">
+    <div style="width: 50%; height: 50%">
+        {% if product.image %}
+            <img src="/media/{{ product.image }}" alt="">
+        {% else %}
+            <img src="https://www.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg" alt="">
+        {% endif %}
+    </div>
         <div class="info">
             <h1>{{ product.title }}</h1>
             <h5>{{ product.description }}</h5>
             <h5>{{ product.price }}</h5>
         </div>
+    <div class="comments">
+        {% for comment in comments %}
+            <div class="comment-block">
+            <h5>{{ comment.text }}</h5>
+            <h6>Rate: {{ comment.rate }}</h6>
+            </div>
+        {% endfor %}
+    </div>
     </div>
 {% endblock %}
