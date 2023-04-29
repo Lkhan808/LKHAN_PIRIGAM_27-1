@@ -32,19 +32,23 @@ def product_detail_view(request, id):
         }
         return render(request, 'products/detail.html', context=context)
     if request.method == 'POST':
-        data, files = request.POST, request.FILES
-        form = ReviewCreateForm(data, files)
+        product = Product.objects.get(id=id)
+        data = request.POST
+        form = ReviewCreateForm(data=data)
 
         if form.is_valid():
-            Product.objects.create(
+            Review.objects.create(
                 text=form.cleaned_data.get('text'),
-                product_id=form.cleaned_data.get('product')
+                product=product
 
             )
 
-            return redirect('/products')
-
-        return render(request, 'products/detail.html', context={'form': form})
+        context = {
+            'product': product,
+            'form': form
+        }
+        return redirect('/products/')
+    return render(request, 'products/detail.html', context=context)
 
 
 def product_create_view(request):

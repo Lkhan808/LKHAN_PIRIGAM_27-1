@@ -13,4 +13,3 @@ class ProductCreateForm(forms.Form):
 class ReviewCreateForm(forms.Form):
     text = forms.CharField(max_length=400)
     rate = forms.FloatField()
-    product = forms.IntegerField(widget=forms.HiddenInput)
