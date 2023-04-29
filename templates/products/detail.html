@@ -1,44 +1,54 @@
-{% extends 'products/products.html' %}
+{% extends 'layouts/index.html' %}
 {% block content %}
     <style type="text/css">
-    .product-block{
-        width: 50%;
-        margin-left: 40px;
-        background: linear-gradient(to bottom, #56ff 0%, #67bfc4 100%);
-    }
-    .comments{
-        margin-top: 15px;
-    }
-    .comment-block{
-        margin-bottom: 20px;
-        padding: 6px;
-        background-color: darkslategray;
-        font-family: "Aileron Bold", monospace;
-        color: aliceblue;
+        .product-block {
+            width: 50%;
+            margin-left: 40px;
+            background: linear-gradient(to bottom, #56ff 0%, #67bfc4 1%);
+        }
+
+        .comments {
+            margin-top: 15px;
+        }
+
+        .comment-block {
+            margin-bottom: 20px;
+            padding: 6px;
+            background-color: darkslategray;
+            font-family: "Aileron Bold", monospace;
+            color: aliceblue;
 
 
-    }
+        }
     </style>
     <div class="product-block">
-    <div style="width: 50%; height: 50%">
-        {% if product.image %}
-            <img src="/media/{{ product.image }}" alt="">
-        {% else %}
-            <img src="https://www.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg" alt="">
-        {% endif %}
-    </div>
+        <div style="width: 50%; height: 50%">
+            {% if product.image %}
+                <img src="/media/{{ product.image }}" alt="">
+            {% else %}
+                <img src="https://www.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg"
+                     alt="">
+            {% endif %}
+        </div>
         <div class="info">
             <h1>{{ product.title }}</h1>
             <h5>{{ product.description }}</h5>
             <h5>{{ product.price }}</h5>
         </div>
-    <div class="comments">
-        {% for comment in comments %}
-            <div class="comment-block">
-            <h5>{{ comment.text }}</h5>
-            <h6>Rate: {{ comment.rate }}</h6>
+        <div class="comments">
+            {% for comment in comments %}
+                <div class="comment-block">
+                    <h5>{{ comment.text }}</h5>
+                    <h6>Rate: {{ comment.rate }}</h6>
+                </div>
+            {% endfor %}
+            <div style="padding-top: 20px" class="create_review">
+                <form action="/products/{{ product.id }}/" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Add review">
+                </form>
             </div>
-        {% endfor %}
-    </div>
+        </div>
     </div>
 {% endblock %}
