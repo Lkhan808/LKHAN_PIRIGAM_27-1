@@ -54,7 +54,8 @@ def product_detail_view(request, id):
 def product_create_view(request):
     if request.method == 'GET':
         context = {
-            'form': ProductCreateForm
+            'form': ProductCreateForm,
+            'user': request.user
         }
         return render(request, 'products/create.html', context=context)
     if request.method == 'POST':

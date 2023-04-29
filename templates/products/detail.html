@@ -20,6 +20,17 @@
 
 
         }
+        .link-button{
+             background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 10%;
+        }
     </style>
     <div class="product-block">
         <div style="width: 50%; height: 50%">
@@ -42,6 +53,7 @@
                     <h6>Rate: {{ comment.rate }}</h6>
                 </div>
             {% endfor %}
+            {% if not user.is_anonymous %}
             <div style="padding-top: 20px" class="create_review">
                 <form action="/products/{{ product.id }}/" method="post">
                     {% csrf_token %}
@@ -49,6 +61,15 @@
                     <input type="submit" value="Add review">
                 </form>
             </div>
+            {% else %}
+            <div style="color: wheat">
+                <li class="button">
+                    <a class="link-button" href="/users/register/">Register</a>
+                    <a class="link-button" href="/users/login/">Login</a>
+                </li>
+            </div>
+        {% endif %}
+
         </div>
     </div>
 {% endblock %}
