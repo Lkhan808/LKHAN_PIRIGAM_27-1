@@ -39,6 +39,7 @@ def product_detail_view(request, id):
         if form.is_valid():
             Review.objects.create(
                 text=form.cleaned_data.get('text'),
+                rate=form.cleaned_data.get('rate'),
                 product=product
 
             )
@@ -47,8 +48,7 @@ def product_detail_view(request, id):
             'product': product,
             'form': form
         }
-        return redirect('/products/')
-    return render(request, 'products/detail.html', context=context)
+        return render(request, 'products/detail.html', context=context)
 
 
 def product_create_view(request):
