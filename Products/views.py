@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 
 from Products.forms import ProductCreateForm, ReviewCreateForm
 from Products.models import Product, Review
+from Products.constant import PAGINATION_LIMIT
 
 
 # Create your views here.
@@ -15,8 +16,20 @@ def main_page_view(request):
 def products_view(request):
     if request.method == 'GET':
         products = Product.objects.all()
+        search = request.GET.get('search')
+        page = int(request.GET.get('page', 1))
+        max_page = products.__len__()/PAGINATION_LIMIT
+        if round(max_page)<max_page:
+            max_page = round(max_page)+1
+        else:
+            max_page = round(max_page)
+        if search:
+            products = products.filter(title__icontains=search) | products.filter(description__icontains=search)
+        products = products[PAGINATION_LIMIT*(page-1): PAGINATION_LIMIT*page]
         context = {
-            'products': products
+            'products': products,
+            'user': request.user,
+            'pages': range(1, max_page+1)
         }
         return render(request, 'products/products.html', context=context)
 
@@ -43,6 +56,7 @@ def product_detail_view(request, id):
                 product=product
 
             )
+            return redirect(f'/products/{id}')
 
         context = {
             'product': product,
